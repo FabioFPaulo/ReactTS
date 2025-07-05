@@ -1,8 +1,9 @@
-import FirstStepsScreen from "@/screens/authentication/FirstStepsScreen";
-import LoginScreen from "@/screens/authentication/LoginScreen";
+import type { AuthenticationStatus } from "@/@types/authentication";
+import FirstStepsScreen from "@/modules/authentication/FirstStepsScreen";
+import LoginScreen from "@/modules/authentication/LoginScreen";
 
 interface Props {
-    sessionType: SessionState;
+    sessionType: AuthenticationStatus;
 }
 
 export default function Authentication(props: Props) {
@@ -18,9 +19,3 @@ export default function Authentication(props: Props) {
     }
     return <div>Authentication</div>;
 }
-
-export type SessionState =
-    | "UNAUTHENTICATED"
-    | "INVALID_EMAIL"
-    | "INVALID_PROFILE"
-    | "AUTHENTICATED";

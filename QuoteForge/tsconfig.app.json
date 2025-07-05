@@ -12,8 +12,9 @@
             "@components/*": ["./src/components/*"],
             "@assets/*": ["./src/assets/*"],
             "@repositories/*": ["./src/repositories/*"],
-            "@screens/*": ["./src/screens/*"],
-            "@hooks/*": ["./src/hooks/*"]
+            "@modules/*": ["./src/modules/*"],
+            "@hooks/*": ["./src/hooks/*"],
+            "@contexts/*": ["./src/contexts/*"]
         },
 
         /* Bundler mode */
