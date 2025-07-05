@@ -11,7 +11,7 @@ import {
     type Unsubscribe,
     type User,
 } from "firebase/auth";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 class FirebaseUserRepository {
     private auth = Firebase.instance.auth;
@@ -72,6 +72,15 @@ class FirebaseUserRepository {
             return user.emailVerified;
         }
         throw "User not found";
+    }
+
+    async updateProfile(profile: MyUserProfile) {
+        const docRef = doc(this.userCollection, profile.id);
+        await setDoc(docRef, profile);
+    }
+
+    get user() {
+        return this.auth.currentUser;
     }
 }
 

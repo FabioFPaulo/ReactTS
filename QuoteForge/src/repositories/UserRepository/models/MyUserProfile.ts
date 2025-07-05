@@ -9,19 +9,22 @@ class MyUserProfile {
     public lastName: string;
     public phone: string;
     public birthday: Date;
+    public phoneIso: string;
 
     constructor(
         id: string,
         firstName: string,
         lastName: string,
         phone: string,
-        birthday: Date
+        birthday: Date,
+        phoneIso: string
     ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.birthday = birthday;
+        this.phoneIso = phoneIso;
     }
 
     toFirestore() {
@@ -29,12 +32,10 @@ class MyUserProfile {
             firstName: this.firstName,
             lastName: this.lastName,
             phone: this.phone,
+            phoneIso: this.phoneIso,
             birthday: this.birthday,
         };
     }
-
-    static empty = (id: string) =>
-        new MyUserProfile(id, "", "", "", new Date());
 
     static fromoFirestore(
         snapshot: QueryDocumentSnapshot,
@@ -47,7 +48,8 @@ class MyUserProfile {
             data["firstName"],
             data["lastName"],
             data["phone"],
-            data["birthday"]
+            data["birthday"],
+            data["phoneIso"]
         );
     }
 }

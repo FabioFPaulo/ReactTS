@@ -3,6 +3,7 @@ import AuthenticationLayout from "@/modules/authentication/ui/AuthenticationLayo
 import SetupProfile from "@/modules/authentication/ui/SetupProfile";
 import ValidateEmail from "@/modules/authentication/ui/ValidateEmail";
 import FirebaseUserRepository from "@/repositories/UserRepository/FirebaseUserRepository";
+import type MyUserProfile from "@/repositories/UserRepository/models/MyUserProfile";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
@@ -62,6 +63,21 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
         }
     }, [alert]);
 
+    const updateProfile = useCallback(
+        async (profile: MyUserProfile) => {
+            try {
+                setLoading(true);
+                await repo.updateProfile(profile);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                alert.openAlert("error", "Error on update profile");
+                setLoading(false);
+            }
+        },
+        [alert]
+    );
+
     return (
         <AuthenticationLayout>
             <Stepper activeStep={defaultStep} sx={{ width: "100%", mb: 3 }}>
@@ -79,7 +95,11 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
                     isLoading={loading}
                 />
             ) : (
-                <SetupProfile onLogout={onLogout} isLoading={loading} />
+                <SetupProfile
+                    onLogout={onLogout}
+                    isLoading={loading}
+                    onCreateClick={updateProfile}
+                />
             )}
         </AuthenticationLayout>
     );
