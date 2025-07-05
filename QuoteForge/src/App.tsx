@@ -1,3 +1,4 @@
+import AlertProvider from "@/contexts/alert/Provider";
 import AuthenticationProvider from "@/contexts/authentication/Provider";
 import FirstStepsScreen from "@/modules/authentication/FirstStepsScreen";
 import LoginScreen from "@/modules/authentication/LoginScreen";
@@ -9,47 +10,68 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <AuthenticationProvider>
-                {(status) => (
-                    <BrowserRouter>
-                        {status === "AUTHENTICATED" ? (
+            <AlertProvider>
+                <AuthenticationProvider>
+                    {(status) => (
+                        <BrowserRouter>
                             <Routes>
-                                <Route index element={<HomeScreen />} />
-                            </Routes>
-                        ) : ["INVALID_EMAIL", "INVALID_PROFILE"].includes(
-                              status
-                          ) ? (
-                            <Routes>
-                                <Route
-                                    index
-                                    element={
-                                        <FirstStepsScreen
-                                            defaultStep={
-                                                status === "INVALID_EMAIL"
-                                                    ? 0
-                                                    : 1
+                                {status === "AUTHENTICATED" ? (
+                                    <>
+                                        <Route index element={<HomeScreen />} />
+                                        <Route
+                                            path="*"
+                                            element={<Navigate to={"/"} />}
+                                        />
+                                    </>
+                                ) : [
+                                      "INVALID_EMAIL",
+                                      "INVALID_PROFILE",
+                                  ].includes(status) ? (
+                                    <>
+                                        <Route
+                                            index
+                                            element={
+                                                <FirstStepsScreen
+                                                    defaultStep={
+                                                        status ===
+                                                        "INVALID_EMAIL"
+                                                            ? 0
+                                                            : 1
+                                                    }
+                                                />
                                             }
                                         />
-                                    }
-                                ></Route>
-                            </Routes>
-                        ) : (
-                            <Routes>
-                                <Route index element={<LoginScreen />} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <Route
+                                            index
+                                            element={<LoginScreen />}
+                                        />
+                                        <Route
+                                            path="register"
+                                            element={<RegisterScreen />}
+                                        />
+                                    </>
+                                )}
                                 <Route
-                                    path="register"
-                                    element={<RegisterScreen />}
+                                    path="*"
+                                    element={<Navigate to={"/"} />}
+                                />
+                                <Route
+                                    path="verified"
+                                    element={<div>verified</div>}
                                 />
                             </Routes>
-                        )}
-                    </BrowserRouter>
-                )}
-            </AuthenticationProvider>
+                        </BrowserRouter>
+                    )}
+                </AuthenticationProvider>
+            </AlertProvider>
         </ThemeProvider>
     );
 }

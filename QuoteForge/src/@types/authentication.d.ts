@@ -1,4 +1,5 @@
 import type MyUser from "@/repositories/UserRepository/models/MyUser";
+import type MyUserProfile from "@/repositories/UserRepository/models/MyUserProfile";
 import type React from "react";
 
 export interface AuthenticationContextType {
@@ -15,6 +16,7 @@ export interface AuthenticationState {
     loadingLabel: string;
     status: AuthenticationStatus;
     user: MyUser | null;
+    profile: MyUserProfile | null;
 }
 
 export type AuthenticationStatus =

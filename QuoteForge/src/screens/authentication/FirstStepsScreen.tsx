@@ -1,4 +1,4 @@
-import AuthenticationLayout from "@/modules/authentication/AuthenticationLayout";
+import AuthenticationLayout from "@/modules/authentication/ui/AuthenticationLayout";
 import SetupProfile from "@/modules/authentication/ui/SetupProfile";
 import ValidateEmail from "@/modules/authentication/ui/ValidateEmail";
 import { Step, StepLabel, Stepper } from "@mui/material";

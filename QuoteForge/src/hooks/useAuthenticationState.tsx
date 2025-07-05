@@ -11,10 +11,11 @@ export default function useAuthenticationState() {
         loadingLabel: "",
         status: "UNAUTHENTICATED",
         user: null,
+        profile: null,
     });
 
     useEffect(() => {
-        const unlisten = repo.onAuthChanged((authUser) => {
+        const unlisten = repo.onAuthChanged(async (authUser) => {
             setState((e) => ({
                 ...e,
                 loading: true,
@@ -22,11 +23,17 @@ export default function useAuthenticationState() {
             }));
 
             if (authUser) {
+                const profile = await repo.getProfile(authUser.uid);
                 setState({
                     loading: false,
                     loadingLabel: "",
-                    status: "INVALID_EMAIL",
+                    status: !authUser.emailVerified
+                        ? "INVALID_EMAIL"
+                        : profile === null
+                        ? "INVALID_PROFILE"
+                        : "AUTHENTICATED",
                     user: MyUser.fromCredential(authUser),
+                    profile,
                 });
             } else {
                 setState({
@@ -34,6 +41,7 @@ export default function useAuthenticationState() {
                     loadingLabel: "",
                     status: "UNAUTHENTICATED",
                     user: null,
+                    profile: null,
                 });
             }
         });

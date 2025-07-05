@@ -20,23 +20,4 @@ class MyUser {
     }
 }
 
-class MyUserProfile {
-    public firstName: string;
-    public lastName: string;
-    public phone: string;
-    public birthday: string;
-
-    constructor(
-        firstName: string,
-        lastName: string,
-        phone: string,
-        birthday: string
-    ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.birthday = birthday;
-    }
-}
-
 export default MyUser;

@@ -1,4 +1,4 @@
-import AuthenticationLayout from "@/modules/authentication/AuthenticationLayout";
+import AuthenticationLayout from "@/modules/authentication/ui/AuthenticationLayout";
 import { Button, Stack, TextField } from "@mui/material";
 
 export default function LoginScreen() {
