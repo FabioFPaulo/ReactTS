@@ -1,10 +1,8 @@
 import MyButtonSubmit from "@/components/forms/MyButtonSubmit";
 import MyTextField from "@/components/forms/MyTextField";
-import useMyAlert from "@/hooks/useMyAlert";
+import useAuthenticationContext from "@/hooks/useAuthenticationContext";
 import AuthenticationLayout from "@/modules/authentication/ui/AuthenticationLayout";
-import FirebaseUserRepository from "@/repositories/UserRepository/FirebaseUserRepository";
 import { Button, Stack } from "@mui/material";
-import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -14,11 +12,9 @@ type FormValues = {
     confPassword: string;
 };
 
-const repo = new FirebaseUserRepository();
-
 export default function RegisterScreen() {
     const navigate = useNavigate();
-    const alert = useMyAlert();
+    const authentication = useAuthenticationContext();
 
     const { control, handleSubmit, formState } = useForm<FormValues>({
         defaultValues: {
@@ -29,15 +25,7 @@ export default function RegisterScreen() {
     });
 
     const onSubmit = async (data: FormValues) => {
-        try {
-            await repo.register(data.email, data.password);
-        } catch (error) {
-            const title =
-                error instanceof FirebaseError
-                    ? "Invalid email or password"
-                    : "Unkown error";
-            alert.openAlert("error", title);
-        }
+        authentication.register(data.email, data.password);
     };
 
     return (

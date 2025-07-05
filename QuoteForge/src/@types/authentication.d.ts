@@ -5,6 +5,11 @@ import type React from "react";
 export interface AuthenticationContextType {
     login(email: string, password: string): Promise<void>;
     register(email: string, password: string): Promise<void>;
+    logout: () => Promise<void>;
+    reloadState: (
+        authUser?: User | null,
+        forceReload?: boolean
+    ) => Promise<AuthenticationState>;
 }
 
 export interface AuthenticationProviderProps {

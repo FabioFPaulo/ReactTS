@@ -1,3 +1,4 @@
+import useAuthenticationContext from "@/hooks/useAuthenticationContext";
 import useMyAlert from "@/hooks/useMyAlert";
 import AuthenticationLayout from "@/modules/authentication/ui/AuthenticationLayout";
 import SetupProfile from "@/modules/authentication/ui/SetupProfile";
@@ -6,7 +7,6 @@ import FirebaseUserRepository from "@/repositories/UserRepository/FirebaseUserRe
 import type MyUserProfile from "@/repositories/UserRepository/models/MyUserProfile";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router";
 
 interface Props {
     defaultStep: number;
@@ -16,9 +16,9 @@ const repo = new FirebaseUserRepository();
 
 export default function FirstStepsScreen({ defaultStep }: Props) {
     const [loading, setLoading] = useState<boolean>(false);
+    const authentication = useAuthenticationContext();
 
     const alert = useMyAlert();
-    const navigate = useNavigate();
 
     const onLogout = useCallback(async () => {
         try {
@@ -35,11 +35,9 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
     const reloadUser = useCallback(async () => {
         try {
             setLoading(true);
-            const emailVerified = await repo.reloadUser();
+            const state = await authentication.reloadState();
 
-            if (emailVerified) {
-                navigate(0);
-            } else {
+            if (!state.user?.emailVerified) {
                 alert.openAlert("error", "Your email are not verified");
             }
 
@@ -49,7 +47,7 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
             alert.openAlert("error", "Error on reload user");
             setLoading(false);
         }
-    }, [alert, navigate]);
+    }, [alert, authentication]);
 
     const sendEmail = useCallback(async () => {
         try {
@@ -68,6 +66,7 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
             try {
                 setLoading(true);
                 await repo.updateProfile(profile);
+                await authentication.reloadState();
                 setLoading(false);
             } catch (error) {
                 console.error(error);
@@ -75,7 +74,7 @@ export default function FirstStepsScreen({ defaultStep }: Props) {
                 setLoading(false);
             }
         },
-        [alert]
+        [alert, authentication]
     );
 
     return (
