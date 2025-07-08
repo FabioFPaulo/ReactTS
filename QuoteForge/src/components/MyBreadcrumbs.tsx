@@ -1,6 +1,12 @@
 import type { Breadcrumb } from "@/@types/privateLayout";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Breadcrumbs, Link, Skeleton, Typography } from "@mui/material";
+import {
+    Breadcrumbs,
+    Link as MLink,
+    Skeleton,
+    Typography,
+} from "@mui/material";
+import { useNavigate } from "react-router";
 
 type Props = {
     breadcrumbs: Breadcrumb[];
@@ -8,6 +14,7 @@ type Props = {
 };
 
 export default function MyBreadcrumbs(props: Props) {
+    const navigate = useNavigate();
     return (
         <Breadcrumbs
             separator={<NavigateNextIcon fontSize="small" />}
@@ -17,7 +24,6 @@ export default function MyBreadcrumbs(props: Props) {
                 padding: "0.5em 1em",
                 bgcolor: "#5367E411",
                 color: "#111D67",
-                mb: 2,
                 userSelect: "none",
                 height: "2.5rem",
                 display: "flex",
@@ -42,16 +48,16 @@ export default function MyBreadcrumbs(props: Props) {
                               {bc.label}
                           </Typography>
                       ) : (
-                          <Link
+                          <MLink
                               underline="hover"
                               sx={{ display: "flex", alignItems: "center" }}
                               color="inherit"
-                              href={bc.to}
+                              onClick={() => navigate(bc.to)}
                               key={index}
                           >
                               <bc.Icon sx={{ mr: 0.5 }} fontSize="inherit" />
                               {bc.label}
-                          </Link>
+                          </MLink>
                       )
                   )}
         </Breadcrumbs>

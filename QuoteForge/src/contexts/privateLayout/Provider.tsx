@@ -6,7 +6,15 @@ import MyAppBar from "@/components/MyAppBar";
 import MyBreadcrumbs from "@/components/MyBreadcrumbs";
 import { PrivateLayoutContext } from "@/contexts/privateLayout/Context";
 import useAuthenticationState from "@/hooks/useAuthenticationState";
-import { Grid, Skeleton, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {
+    Box,
+    Grid,
+    IconButton,
+    Skeleton,
+    Stack,
+    Typography,
+} from "@mui/material";
 import { useCallback, useState } from "react";
 import { Outlet } from "react-router";
 
@@ -16,13 +24,16 @@ export default function PrivateLayoutProvider() {
 
     const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([]);
 
+    const [backbutton, setBackbutton] = useState<boolean>(false);
+
     const [auth] = useAuthenticationState();
 
     const initPage = useCallback<PrivateLayoutContextType["initPage"]>(
-        (title, subtitle, breadcrumbs) => {
+        (title, subtitle, breadcrumbs, usebackbutton = false) => {
             setTitle(title);
             setSubtitle(subtitle);
             setBreadcrumbs(breadcrumbs);
+            setBackbutton(usebackbutton);
         },
         []
     );
@@ -39,10 +50,24 @@ export default function PrivateLayoutProvider() {
                     <MyAppBar loading={auth.loading} />
                 </Grid>
                 <Grid size={{ xs: 11, sm: 10 }} sx={{ userSelect: "none" }}>
-                    <MyBreadcrumbs
-                        breadcrumbs={breadcrumbs}
-                        loading={auth.loading}
-                    />
+                    <Stack
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
+                        mb={2}
+                    >
+                        {backbutton && (
+                            <IconButton aria-label="back" size="medium">
+                                <ArrowBackIcon fontSize="inherit" />
+                            </IconButton>
+                        )}
+                        <Box width="100%">
+                            <MyBreadcrumbs
+                                breadcrumbs={breadcrumbs}
+                                loading={auth.loading}
+                            />
+                        </Box>
+                    </Stack>
                     {auth.loading ? (
                         <Typography
                             variant="h5"

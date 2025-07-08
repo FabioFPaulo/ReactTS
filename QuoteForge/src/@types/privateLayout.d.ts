@@ -4,7 +4,8 @@ export interface PrivateLayoutContextType {
     initPage(
         title: string,
         subtile: string | null,
-        breadcrumbs: Breadcrumb[]
+        breadcrumbs: Breadcrumb[],
+        useBackButton?: boolean
     ): void;
     firstName: string | null;
 }
