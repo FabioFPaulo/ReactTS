@@ -1,5 +1,6 @@
 import AlertProvider from "@/contexts/alert/Provider";
 import AuthenticationProvider from "@/contexts/authentication/Provider";
+import PrivateLayoutProvider from "@/contexts/privateLayout/Provider";
 import FirstStepsScreen from "@/modules/authentication/FirstStepsScreen";
 import LoginScreen from "@/modules/authentication/LoginScreen";
 import RegisterScreen from "@/modules/authentication/RegisterScreen";
@@ -21,13 +22,9 @@ function App() {
                         <BrowserRouter>
                             <Routes>
                                 {status === "AUTHENTICATED" ? (
-                                    <>
+                                    <Route element={<PrivateLayoutProvider />}>
                                         <Route index element={<HomeScreen />} />
-                                        <Route
-                                            path="*"
-                                            element={<Navigate to={"/"} />}
-                                        />
-                                    </>
+                                    </Route>
                                 ) : [
                                       "INVALID_EMAIL",
                                       "INVALID_PROFILE",
