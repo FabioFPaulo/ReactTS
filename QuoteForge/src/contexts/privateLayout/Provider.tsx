@@ -6,7 +6,7 @@ import MyAppBar from "@/components/MyAppBar";
 import MyBreadcrumbs from "@/components/MyBreadcrumbs";
 import { PrivateLayoutContext } from "@/contexts/privateLayout/Context";
 import useAuthenticationState from "@/hooks/useAuthenticationState";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Skeleton, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Outlet } from "react-router";
 
@@ -38,18 +38,46 @@ export default function PrivateLayoutProvider() {
                 <Grid size={12}>
                     <MyAppBar loading={auth.loading} />
                 </Grid>
-                <Grid size={{ xs: 11, sm: 10 }}>
+                <Grid size={{ xs: 11, sm: 10 }} sx={{ userSelect: "none" }}>
                     <MyBreadcrumbs
                         breadcrumbs={breadcrumbs}
                         loading={auth.loading}
                     />
-                    <Typography variant="h5" color="#333">
-                        {title}
-                    </Typography>
-                    {subtitle && (
-                        <Typography variant="h6" color="#999">
-                            {subtitle}
+                    {auth.loading ? (
+                        <Typography
+                            variant="h5"
+                            color="#333"
+                            mb={subtitle ? 0 : 3}
+                        >
+                            <Skeleton
+                                variant="text"
+                                width={100}
+                                height="100%"
+                            />
                         </Typography>
+                    ) : (
+                        <Typography
+                            variant="h5"
+                            color="#333"
+                            mb={subtitle ? 0 : 3}
+                        >
+                            {title}
+                        </Typography>
+                    )}
+                    {auth.loading ? (
+                        <Typography variant="h6" color="#999" mb={3}>
+                            <Skeleton
+                                variant="text"
+                                width={200}
+                                height="100%"
+                            />
+                        </Typography>
+                    ) : (
+                        subtitle && (
+                            <Typography variant="h6" color="#999" mb={3}>
+                                {subtitle}
+                            </Typography>
+                        )
                     )}
                 </Grid>
                 <Grid size={{ xs: 11, sm: 10 }}>

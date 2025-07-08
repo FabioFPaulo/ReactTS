@@ -5,6 +5,7 @@ import FirstStepsScreen from "@/modules/authentication/FirstStepsScreen";
 import LoginScreen from "@/modules/authentication/LoginScreen";
 import RegisterScreen from "@/modules/authentication/RegisterScreen";
 import HomeScreen from "@/modules/private/HomeScreen";
+import ProjectsScreen from "@/modules/projects/ProjectsScreen";
 import { theme } from "@/theme";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -24,6 +25,10 @@ function App() {
                                 {status === "AUTHENTICATED" ? (
                                     <Route element={<PrivateLayoutProvider />}>
                                         <Route index element={<HomeScreen />} />
+                                        <Route
+                                            path="projects"
+                                            element={<ProjectsScreen />}
+                                        />
                                     </Route>
                                 ) : [
                                       "INVALID_EMAIL",
