@@ -16,7 +16,7 @@ export default function MyTextField<T extends FieldValues>(
         return (
             <InputMask
                 mask={props.mask}
-                disabled={formState.isSubmitting}
+                disabled={formState.isSubmitting || props.isLoading}
                 value={field.value}
                 onChange={
                     ((event) => field.onChange(event.target.value)) as
@@ -35,7 +35,7 @@ export default function MyTextField<T extends FieldValues>(
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     autoComplete="off"
-                    disabled={formState.isSubmitting}
+                    disabled={formState.isSubmitting || props.isLoading}
                     type={props.type}
                 />
             </InputMask>
@@ -51,7 +51,7 @@ export default function MyTextField<T extends FieldValues>(
             error={!!fieldState.error}
             helperText={fieldState.error?.message}
             autoComplete="off"
-            disabled={formState.isSubmitting}
+            disabled={formState.isSubmitting || props.isLoading}
             type={props.type}
             value={field.value}
             onChange={(event) => field.onChange(event.target.value)}

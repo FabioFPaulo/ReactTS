@@ -9,6 +9,7 @@ export interface PrivateLayoutContextType {
         actionButton?: ActionButton | null
     ): void;
     firstName: string | null;
+    userId: string | null;
 }
 
 export interface Breadcrumb {

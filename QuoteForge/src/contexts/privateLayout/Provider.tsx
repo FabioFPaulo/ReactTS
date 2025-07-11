@@ -56,6 +56,7 @@ export default function PrivateLayoutProvider() {
             value={{
                 initPage,
                 firstName: auth.profile?.firstName ?? null,
+                userId: auth.user?.id ?? null,
             }}
         >
             <Grid container justifyContent="center">
