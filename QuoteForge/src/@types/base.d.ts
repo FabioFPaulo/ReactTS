@@ -1,17 +1,14 @@
-export interface FirebaseDataState<T> {
+export interface BaseListState<T> {
     data: T[];
     loading: boolean;
 }
 
 export interface BaseRepositoryActions<T> {
-    remove(id: string): Promise<void>;
-    update(data: T): Promise<void>;
-    add(data: T): Promise<void>;
-    getAll(): Promise<void>;
+    remove(id: string, callback?: CallableFunction): Promise<void>;
+    update(data: T, callback?: CallableFunction): Promise<void>;
+    add(data: T, callback?: CallableFunction): Promise<void>;
+    get(id: string): Promise<T>;
     loading: boolean;
 }
 
-export type FirebaseHookReturn<T> = [
-    FirebaseDataState<T>,
-    BaseRepositoryActions<T>
-];
+export type BaseListReturn<T> = [BaseListState<T>, () => Promise<void>];

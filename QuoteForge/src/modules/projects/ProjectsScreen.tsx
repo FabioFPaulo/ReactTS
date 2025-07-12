@@ -2,7 +2,8 @@ import usePrivateLayout from "@/hooks/usePrivateLayout";
 import { useCallback, useEffect, useState } from "react";
 
 import CardListItem from "@/components/cards/CardListItem";
-import useProjectsFirebase from "@/hooks/useProjectsFirebase";
+import useProjectActions from "@/hooks/useProjectActions";
+import useProjects from "@/hooks/useProjects";
 import ProjectForm from "@/modules/projects/ProjectForm";
 import Project from "@/repositories/ProjectRepository/models/Project";
 import AddIcon from "@mui/icons-material/Add";
@@ -10,10 +11,14 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import HomeIcon from "@mui/icons-material/Home";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import { Grid, LinearProgress, Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export default function ProjectsScreen() {
+    const navigate = useNavigate();
     const { initPage, userId } = usePrivateLayout();
-    const [projects, projectActions] = useProjectsFirebase(userId!);
+
+    const [projects, refetchProjects] = useProjects(userId!);
+    const projectActions = useProjectActions(userId!);
 
     const [formOpen, setFormOpen] = useState<Project | null>(null);
 
@@ -21,14 +26,14 @@ export default function ProjectsScreen() {
         async (data: Project) => {
             if (data.id === "") {
                 // create
-                await projectActions.add(data);
+                await projectActions.add(data, refetchProjects);
             } else {
                 // update
-                await projectActions.update(data);
+                await projectActions.update(data, refetchProjects);
             }
             setFormOpen(null);
         },
-        [projectActions]
+        [projectActions, refetchProjects]
     );
 
     useEffect(() => {
@@ -84,7 +89,13 @@ export default function ProjectsScreen() {
                             key={project.id}
                             loading={projectActions.loading}
                             onUpdate={() => setFormOpen(project)}
-                            onDelete={() => projectActions.remove(project.id)}
+                            onDelete={() =>
+                                projectActions.remove(
+                                    project.id,
+                                    refetchProjects
+                                )
+                            }
+                            onClick={() => navigate(`/projects/${project.id}`)}
                         />
                     ))}
             </Grid>

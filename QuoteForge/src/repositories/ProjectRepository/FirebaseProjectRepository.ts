@@ -6,6 +6,7 @@ import {
     CollectionReference,
     deleteDoc,
     doc,
+    getDoc,
     getDocs,
     setDoc,
 } from "firebase/firestore";
@@ -48,6 +49,17 @@ class FirebaseProjectRepository {
     async remove(id: string) {
         const docRef = doc(this.projectCollection, id);
         await deleteDoc(docRef);
+    }
+
+    async get(id: string) {
+        const docRef = doc(this.projectCollection, id);
+        const project = (await getDoc(docRef)).data();
+
+        if (project) {
+            return project;
+        }
+
+        throw Error("Project not found");
     }
 }
 
