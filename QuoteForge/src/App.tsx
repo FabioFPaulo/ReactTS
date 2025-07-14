@@ -27,11 +27,11 @@ function App() {
                                     <Route element={<PrivateLayoutProvider />}>
                                         <Route index element={<HomeScreen />} />
                                         <Route
-                                            path="projects"
+                                            path="/projects"
                                             element={<ProjectsScreen />}
                                         />
                                         <Route
-                                            path="projects/:projectId"
+                                            path="/projects/:projectId"
                                             element={<BudgetsScreen />}
                                         />
                                     </Route>

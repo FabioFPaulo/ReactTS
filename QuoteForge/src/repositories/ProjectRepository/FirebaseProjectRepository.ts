@@ -12,12 +12,7 @@ import {
 } from "firebase/firestore";
 
 class FirebaseProjectRepository {
-    private projectCollection: CollectionReference<
-        Project,
-        {
-            name: string;
-        }
-    >;
+    private projectCollection: CollectionReference<Project>;
 
     constructor(userId: string) {
         this.projectCollection = collection(
