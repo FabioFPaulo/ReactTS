@@ -1,3 +1,5 @@
+import type MyUser from "@/repositories/UserRepository/models/MyUser";
+import type MyUserProfile from "@/repositories/UserRepository/models/MyUserProfile";
 import { SvgIconComponent } from "@material-ui/icons";
 
 export interface PrivateLayoutContextType {
@@ -10,6 +12,8 @@ export interface PrivateLayoutContextType {
     ): void;
     firstName: string | null;
     userId: string | null;
+    user: MyUser | null;
+    profile: MyUserProfile | null;
 }
 
 export interface Breadcrumb {

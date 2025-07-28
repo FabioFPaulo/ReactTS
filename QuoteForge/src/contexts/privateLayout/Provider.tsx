@@ -57,82 +57,101 @@ export default function PrivateLayoutProvider() {
                 initPage,
                 firstName: auth.profile?.firstName ?? null,
                 userId: auth.user?.id ?? null,
+                user: auth.user,
+                profile: auth.profile,
             }}
         >
-            <Grid container justifyContent="center">
-                <Grid size={12}>
-                    <MyAppBar loading={auth.loading} />
-                </Grid>
-                <Grid size={{ xs: 11, sm: 10 }} sx={{ userSelect: "none" }}>
-                    <Stack
-                        direction="row"
-                        spacing={1}
-                        alignItems="center"
-                        mb={2}
+            <Stack height="100vh" direction="column">
+                <MyAppBar loading={auth.loading} />
+                <Grid
+                    container
+                    alignItems="center"
+                    direction="column"
+                    height="100%"
+                >
+                    <Grid
+                        size={{ xs: 11, sm: 10 }}
+                        height="100%"
+                        sx={{
+                            userSelect: "none",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
                     >
-                        {backbutton && (
-                            <IconButton
-                                aria-label="back"
-                                size="medium"
-                                onClick={() => navigate(-1)}
-                            >
-                                <ArrowBackIcon fontSize="inherit" />
-                            </IconButton>
-                        )}
-                        <Box flex={1}>
-                            <MyBreadcrumbs
-                                breadcrumbs={breadcrumbs}
-                                loading={auth.loading}
-                            />
-                        </Box>
-                    </Stack>
-                    <Stack direction="row" alignItems="flex-end" mb={3}>
-                        <Box flex={1}>
-                            {auth.loading ? (
-                                <Typography variant="h5" color="#333">
-                                    <Skeleton
-                                        variant="text"
-                                        width={100}
-                                        height="100%"
-                                    />
-                                </Typography>
-                            ) : (
-                                <Typography variant="h5" color="#333">
-                                    {title}
-                                </Typography>
+                        <Stack
+                            direction="row"
+                            spacing={1}
+                            alignItems="center"
+                            mb={2}
+                        >
+                            {backbutton && (
+                                <IconButton
+                                    aria-label="back"
+                                    size="medium"
+                                    onClick={() => navigate(-1)}
+                                >
+                                    <ArrowBackIcon fontSize="inherit" />
+                                </IconButton>
                             )}
-                            {auth.loading ? (
-                                <Typography variant="h6" color="#999" mb={3}>
-                                    <Skeleton
-                                        variant="text"
-                                        width={200}
-                                        height="100%"
-                                    />
-                                </Typography>
-                            ) : (
-                                subtitle && (
-                                    <Typography variant="h6" color="#999">
-                                        {subtitle}
+                            <Box flex={1}>
+                                <MyBreadcrumbs
+                                    breadcrumbs={breadcrumbs}
+                                    loading={auth.loading}
+                                />
+                            </Box>
+                        </Stack>
+                        <Stack direction="row" alignItems="flex-end" mb={3}>
+                            <Box flex={1}>
+                                {auth.loading ? (
+                                    <Typography variant="h5" color="#333">
+                                        <Skeleton
+                                            variant="text"
+                                            width={100}
+                                            height="100%"
+                                        />
                                     </Typography>
-                                )
+                                ) : (
+                                    <Typography variant="h5" color="#333">
+                                        {title}
+                                    </Typography>
+                                )}
+                                {auth.loading ? (
+                                    <Typography
+                                        variant="h6"
+                                        color="#999"
+                                        mb={3}
+                                    >
+                                        <Skeleton
+                                            variant="text"
+                                            width={200}
+                                            height="100%"
+                                        />
+                                    </Typography>
+                                ) : (
+                                    subtitle && (
+                                        <Typography variant="h6" color="#999">
+                                            {subtitle}
+                                        </Typography>
+                                    )
+                                )}
+                            </Box>
+                            {actionButton !== null && (
+                                <Button
+                                    onClick={actionButton.onClick}
+                                    variant="contained"
+                                    size="small"
+                                    startIcon={actionButton.startIcon}
+                                >
+                                    {actionButton.label}
+                                </Button>
                             )}
-                        </Box>
-                        {actionButton !== null && (
-                            <Button
-                                onClick={actionButton.onClick}
-                                variant="contained"
-                                size="small"
-                                startIcon={actionButton.startIcon}
-                            >
-                                {actionButton.label}
-                            </Button>
-                        )}
-                    </Stack>
+                        </Stack>
+                        {auth.profile !== null &&
+                            auth.user !== null &&
+                            !auth.loading && <Outlet />}
+                    </Grid>
                 </Grid>
-                <Grid size={{ xs: 11, sm: 10 }}>
-                    {auth.profile !== null && !auth.loading && <Outlet />}
-                </Grid>
-            </Grid>
+            </Stack>
         </PrivateLayoutContext.Provider>
     );
 }

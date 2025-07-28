@@ -5,6 +5,7 @@ import FirstStepsScreen from "@/modules/authentication/FirstStepsScreen";
 import LoginScreen from "@/modules/authentication/LoginScreen";
 import RegisterScreen from "@/modules/authentication/RegisterScreen";
 import BudgetsScreen from "@/modules/budgets/BudgetsScreen";
+import PdfViewerScreen from "@/modules/pdfViewer/PdfViewerScreen";
 import HomeScreen from "@/modules/private/HomeScreen";
 import ProjectsScreen from "@/modules/projects/ProjectsScreen";
 import { theme } from "@/theme";
@@ -33,6 +34,10 @@ function App() {
                                         <Route
                                             path="/projects/:projectId"
                                             element={<BudgetsScreen />}
+                                        />{" "}
+                                        <Route
+                                            path="/projects/:projectId/:budgetId"
+                                            element={<PdfViewerScreen />}
                                         />
                                     </Route>
                                 ) : [
