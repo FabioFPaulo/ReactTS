@@ -27,13 +27,13 @@ const noChangeParts = [
 ];
 
 const performanceImages = [
-    { id: "p1", src: "/performance1.png" },
-    { id: "p2", src: "/performance2.png" },
-    { id: "p3", src: "/performance3.png" },
-    { id: "p4", src: "/performance4.png" },
-    { id: "p5", src: "/performance5.jpg" },
-    { id: "p6", src: "/performance6.png" },
-    { id: "p7", src: "/performance7.png" },
+    { id: "p1", src: import.meta.env.BASE_URL + "performance1.png" },
+    { id: "p2", src: import.meta.env.BASE_URL + "performance2.png" },
+    { id: "p3", src: import.meta.env.BASE_URL + "performance3.png" },
+    { id: "p4", src: import.meta.env.BASE_URL + "performance4.png" },
+    { id: "p5", src: import.meta.env.BASE_URL + "performance5.jpg" },
+    { id: "p6", src: import.meta.env.BASE_URL + "performance6.png" },
+    { id: "p7", src: import.meta.env.BASE_URL + "performance7.png" },
 ];
 
 const performanceImgPositions = [
@@ -77,28 +77,28 @@ const performanceImgPositions = [
 const features = [
     {
         id: 1,
-        icon: "/feature-icon1.svg",
+        icon: import.meta.env.BASE_URL + "feature-icon1.svg",
         highlight: "Email AI.",
         text: "Summarize and draft replies to emails instantly, so you stay on top of your inbox.",
         styles: "left-5 md:left-20 top-[20%] opacity-0 translate-y-5",
     },
     {
         id: 2,
-        icon: "/feature-icon2.svg",
+        icon: import.meta.env.BASE_URL + "feature-icon2.svg",
         highlight: "Image AI.",
         text: "Generate or edit images with ease. Just type what you imagine, and let AI bring it to life.",
         styles: "right-5 md:right-20 top-[30%] opacity-0 translate-y-5",
     },
     {
         id: 3,
-        icon: "/feature-icon3.svg",
+        icon: import.meta.env.BASE_URL + "feature-icon3.svg",
         highlight: "Summarize AI.",
         text: "Turn long articles, reports, or notes into clear, bite-sized summaries in seconds.",
         styles: "left-5 md:left-20 top-[50%] opacity-0 translate-y-5",
     },
     {
         id: 4,
-        icon: "/feature-icon4.svg",
+        icon: import.meta.env.BASE_URL + "feature-icon4.svg",
         highlight: "AirDrop.",
         text: "Wirelessly share photos, large files, and more between your iPhone, your Mac, & other devices.",
         styles: "right-5 md:right-20 top-[70%] opacity-0 translate-y-5",
@@ -113,11 +113,31 @@ const features = [
 ];
 
 const featureSequence = [
-    { videoPath: "/videos/feature-1.mp4", boxClass: ".box1", delay: 1 },
-    { videoPath: "/videos/feature-2.mp4", boxClass: ".box2", delay: 0 },
-    { videoPath: "/videos/feature-3.mp4", boxClass: ".box3", delay: 0 },
-    { videoPath: "/videos/feature-4.mp4", boxClass: ".box4", delay: 0 },
-    { videoPath: "/videos/feature-5.mp4", boxClass: ".box5", delay: 0 },
+    {
+        videoPath: import.meta.env.BASE_URL + "videos/feature-1.mp4",
+        boxClass: ".box1",
+        delay: 1,
+    },
+    {
+        videoPath: import.meta.env.BASE_URL + "videos/feature-2.mp4",
+        boxClass: ".box2",
+        delay: 0,
+    },
+    {
+        videoPath: import.meta.env.BASE_URL + "videos/feature-3.mp4",
+        boxClass: ".box3",
+        delay: 0,
+    },
+    {
+        videoPath: import.meta.env.BASE_URL + "videos/feature-4.mp4",
+        boxClass: ".box4",
+        delay: 0,
+    },
+    {
+        videoPath: import.meta.env.BASE_URL + "videos/feature-5.mp4",
+        boxClass: ".box5",
+        delay: 0,
+    },
 ];
 
 const footerLinks = [

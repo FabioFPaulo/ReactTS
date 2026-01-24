@@ -8,7 +8,10 @@ const Footer = () => {
                     More wait to shop: Find an Apple Store or other retailer
                     near you. Or call 000000 000 0000
                 </p>
-                <img src="/logo.svg" alt="Apple logo" />
+                <img
+                    src={import.meta.env.BASE_URL + "logo.svg"}
+                    alt="Apple logo"
+                />
             </div>
 
             <hr />

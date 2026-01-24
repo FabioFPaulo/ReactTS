@@ -64,7 +64,7 @@ export function MacbookModel16(props: JSX.IntrinsicElements["group"]) {
     const { color } = useMacbookStore();
 
     const { nodes, materials, scene } = useGLTF(
-        "/models/macbook-16-transformed.glb",
+        import.meta.env.BASE_URL + "models/macbook-16-transformed.glb",
     ) as unknown as GLTFResult;
 
     useEffect(() => {
@@ -77,7 +77,7 @@ export function MacbookModel16(props: JSX.IntrinsicElements["group"]) {
         });
     }, [color, scene]);
 
-    const texture = useTexture("/screen.png");
+    const texture = useTexture(import.meta.env.BASE_URL + "screen.png");
     return (
         <group {...props} dispose={null}>
             <mesh
@@ -181,4 +181,4 @@ export function MacbookModel16(props: JSX.IntrinsicElements["group"]) {
     );
 }
 
-useGLTF.preload("/models/macbook-16-transformed.glb");
+useGLTF.preload(import.meta.env.BASE_URL + "models/macbook-16-transformed.glb");

@@ -21,10 +21,10 @@ const useMacbookStore = create<MacbookStore>((set) => ({
         set({
             color: "#2e2c2e",
             scale: 0.08,
-            texture: "/videos/feature-1.mp4",
+            texture: import.meta.env.BASE_URL + "videos/feature-1.mp4",
         }),
 
-    texture: "/videos/feature-1.mp4",
+    texture: import.meta.env.BASE_URL + "videos/feature-1.mp4",
     setTexture: (texture: string) => set({ texture }),
 }));
 
