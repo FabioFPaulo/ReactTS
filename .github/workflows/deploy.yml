@@ -20,17 +20,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
           cache-dependency-path: |
-            MacbookGsapApp/package-lock.json
+            MacbookGsapApp/yarn.lock
 
       - name: Install dependencies for MacbookGsapApp
         working-directory: ./MacbookGsapApp
-        run: npm install
+        run: yarn
 
       - name: Build MacbookGsapApp
         working-directory: ./MacbookGsapApp
-        run: npm run build
+        run: yarn build
 
       
 
